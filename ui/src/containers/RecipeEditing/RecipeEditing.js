@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { addRecipe, updateRecipe } from '../Recipes/RecipesActions';
+import { addRecipe, fetchRecipe } from '../Recipes/RecipesActions';
 import { isRecipesFetching, activeRecipe } from '../Recipes/RecipesReducer';
 import RecipeForm from '../../components/RecipeForm/RecipeForm'
 
@@ -81,7 +81,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ addRecipe }, dispatch)
+    actions: bindActionCreators({ addRecipe, fetchRecipe }, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeEditing)

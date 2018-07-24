@@ -5,7 +5,7 @@ export default {
 		return api.makeRequest('/api/recipes', api.requestTypes.GET);
 	},
 	addRecipe: recipe => {
-		return api.makeRequest('/api/recipes', api.requestTypes.POST);
+		return api.makeRequest('/api/recipes', api.requestTypes.POST, recipe);
 	},
 	updateRecipes: recipe => {
 		return api.makeRequest(`/api/recipes/${recipe._id}`, api.requestTypes.PATCH, recipe);

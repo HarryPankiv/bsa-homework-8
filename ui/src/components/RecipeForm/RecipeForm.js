@@ -98,10 +98,11 @@ export default class RecipeForm extends Component {
 						label="Description"
 						name="description"
 						autoComplete="off"
+						value={description}
 						placeholder="Describe your dish"
 						onChange={this.handleFieldChange}
 						disabled={disabled}
-					>{description}</Description>
+					></Description>
 				</Form>
 				<Cancel onClick={this.handleCancel}>{cancelButtonTitle}</Cancel>
 				<Submit onClick={this.handleSubmit}>{submitButtonTitle}</Submit>
