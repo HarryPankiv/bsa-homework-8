@@ -82,7 +82,7 @@ export default class RecipeForm extends Component {
 		const { title, description } = this.state;
 
 		return (
-			<div>
+			<React.Fragment>
 				<FormTitle>{formTitle}</FormTitle>
 				<Form>
 					<Title 
@@ -106,7 +106,7 @@ export default class RecipeForm extends Component {
 				</Form>
 				<Cancel onClick={this.handleCancel}>{cancelButtonTitle}</Cancel>
 				<Submit onClick={this.handleSubmit}>{submitButtonTitle}</Submit>
-			</div>
+			</React.Fragment>
 		)
 	}
 }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import { addRecipe, fetchRecipe } from '../Recipes/RecipesActions';
+import { updateRecipe, fetchRecipe } from '../Recipes/RecipesActions';
 import { isRecipesFetching, activeRecipe } from '../Recipes/RecipesReducer';
 import RecipeForm from '../../components/RecipeForm/RecipeForm'
 
@@ -50,9 +50,11 @@ class RecipeEditing extends Component {
 
     render() {
         const { isFetching, recipe } = this.props
+        console.log(this.props)
         
         return (
             <div>
+                hello
                 {
                     !!recipe && <RecipeForm
                         disabled={isFetching}
@@ -61,18 +63,12 @@ class RecipeEditing extends Component {
                         onCancel={this.handleCancel}
                         submitButtonTitle="Update recipe"
                         cancelButtonTitle="Back to recipes"
+                        initialValues={recipe}
                     ></RecipeForm>
                 }
             </div>
         )
     }
-}
-
-
-RecipeEditing.defaultProps = {
-	recipe: PropTypes.object,
-	isFetching: PropTypes.bool,
-	actions: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -81,7 +77,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ addRecipe, fetchRecipe }, dispatch)
+    actions: bindActionCreators({ updateRecipe, fetchRecipe }, dispatch)
 })
+
+RecipeEditing.defaultProps = {
+	recipe: PropTypes.object,
+	isFetching: PropTypes.bool,
+	actions: PropTypes.object.isRequired
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeEditing)

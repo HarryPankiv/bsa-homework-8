@@ -13,16 +13,13 @@ export const fetchRecipe = id => ({
 
 export const addRecipe = recipe => ({
 	type: constants.ADD_RECIPE,
-	payload: {
-		recipe
-	}
+	payload: recipe
+
 })
 
 export const updateRecipe = recipe => ({
 	type: constants.UPDATE_RECIPE,
-	payload: {
-		recipe
-	}
+	payload: recipe
 })
 
 export const deleteRecipe = id => ({

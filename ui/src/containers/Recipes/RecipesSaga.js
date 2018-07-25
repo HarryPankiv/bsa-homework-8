@@ -26,6 +26,7 @@ function* fetchAllRecipes() {
 
 function* addRecipe(action) {
 	try {
+		console.log(action.payload)
 		const recipeResponse = yield call(recipeAPI.addRecipe, action.payload);
 
 		yield put({
