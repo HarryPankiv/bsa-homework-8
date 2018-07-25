@@ -16,7 +16,7 @@ const byId = ( state = initialState.byId, action ) => {
 		case constants.FETCH_RECIPE_SUCCESS:
 			return {
 				...state,
-				[action.payload.byId]: action.payload
+				[action.payload._id]: action.payload
 			}
 		default :
 			return state
@@ -72,7 +72,10 @@ const active = ( state = initialState.active, action ) => {
 }
 
 export default combineReducers({
-	byId, all, isFetching, active
+	byId, 
+	all, 
+	isFetching, 
+	active
 })
 
 export const allRecipes = ({ recipes }) => recipes.all.map( id => recipes.byId[id]);

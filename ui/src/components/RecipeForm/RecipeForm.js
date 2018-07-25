@@ -37,7 +37,8 @@ const Form = styled.form`
 `
 const Cancel = styled.button`
 	display: block;
-	width: 40px;
+	width: 80px;
+	border-radius: 55px;
 `
 
 const Submit = styled.button`
