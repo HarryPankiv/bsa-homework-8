@@ -7,13 +7,13 @@ export default {
 	addRecipe: recipe => {
 		return api.makeRequest('/api/recipes', api.requestTypes.POST, recipe);
 	},
-	updateRecipes: recipe => {
+	updateRecipe: recipe => {
 		return api.makeRequest(`/api/recipes/${recipe._id}`, api.requestTypes.PATCH, recipe);
 	},
-	deleteRecipes: id => {
+	deleteRecipe: id => {
 		return api.makeRequest(`/api/recipes/${id}`, api.requestTypes.DELETE);
 	},
-	fetchRecipes: id => {
+	fetchRecipe: id => {
 		return api.makeRequest(`/api/recipes/${id}`, api.requestTypes.GET);
 	}
 }
