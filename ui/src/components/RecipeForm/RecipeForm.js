@@ -1,49 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components'; 
-
-const FormTitle = styled.h3`
-	display: block;
-	text-align: center;
-	color: palevioletred;
-`
-
-const Title = styled.input`
-	display: block;
-	border: none;
-	outline: none;
-	background-color: transparent;
-	width: 80%;
-`
-
-const Description = styled.textarea`
-	display: block;
-	border: none;
-	outline: none;
-	background-color: transparent;
-	width: 80%;
-	resize: none;
-`
-
-const Form = styled.form`
-  	background: papayawhip;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-flow: column wrap;
-	width: 70%;
-	color: #3d3d3d;
-	margin: 0 auto;
-`
-const Cancel = styled.button`
-	display: block;
-	width: 80px;
-	border-radius: 55px;
-`
-
-const Submit = styled.button`
-	display: block;
-`
+import { FormTitle, Title, Description, Form, Container, Button, Row, Rating } from '../../Theme';
 
 export default class RecipeForm extends Component {
 	constructor(props) {
@@ -94,7 +51,7 @@ export default class RecipeForm extends Component {
 		const { title, description, rating } = this.state;
 
 		return (
-			<React.Fragment>
+			<Container>
 				<FormTitle>{formTitle}</FormTitle>
 				<Form>
 					<Title 
@@ -116,12 +73,14 @@ export default class RecipeForm extends Component {
 						disabled={disabled}
 					></Description>
 					{ ratingInput ? 
-					<input type="number" value={rating} onChange={this.handleRatingChange}/> : null}
+					<Rating type="number" value={rating} onChange={this.handleRatingChange}/> : null}
 					
 				</Form>
-				<Cancel onClick={this.handleCancel}>{cancelButtonTitle}</Cancel>
-				<Submit onClick={this.handleSubmit} disabled={this.state.disabled}>{submitButtonTitle}</Submit>
-			</React.Fragment>
+				<Row>
+					<Button onClick={this.handleCancel}>{cancelButtonTitle}</Button>
+					<Button onClick={this.handleSubmit} disabled={this.state.disabled}>{submitButtonTitle}</Button>
+				</Row>
+			</Container>
 		)
 	}
 }

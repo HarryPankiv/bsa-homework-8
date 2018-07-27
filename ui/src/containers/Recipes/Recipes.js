@@ -9,6 +9,8 @@ import RecipeList from '../../components/RecipeList/RecipeList';
 import RecipeListHeader from '../../components/RecipeList/RecipeListHeader'
 import EmptyRecipeList from '../../components/RecipeList/EmptyRecipeList';
 import RecipeModal from '../../components/RecipeModal/RecipeModal';
+import { Title, Row } from "../../Theme";
+
 
 class Recipes extends Component {
 	constructor(props) {
@@ -81,13 +83,20 @@ class Recipes extends Component {
                 {!allRecipes.length && !isFetching ?
                     <EmptyRecipeList onCreate={this.handleRecipeCreate}/> :
                     <React.Fragment>
-                        <RecipeListHeader 
-                            onCreate={this.handleRecipeCreate}
-                            listLength={allRecipes.length}
-                            onSort={this.handleSort}
-                        />
+                        <Row>
+                            <Title type="text" 
+                                placeholder="search..." 
+                                onChange={this.handleSearchChange} 
+                                value={this.state.searchQuery}
+                            />
 
-                        <input type="text" onChange={this.handleSearchChange} value={this.state.searchQuery} />
+                            <RecipeListHeader 
+                                onCreate={this.handleRecipeCreate}
+                                listLength={allRecipes.length}
+                                onSort={this.handleSort}
+                            />
+                        </Row>
+                        
 
                         {
                             this.state.searchQuery.length > 0 ? 

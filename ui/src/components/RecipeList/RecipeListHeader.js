@@ -1,9 +1,12 @@
 import React from 'react';
 
+import { Button, DishTitle, DishField, Row, Container } from '../../Theme';
+
+
 export default ({onCreate, listLength, onSort }) => (
-    <div>
-        <p>{listLength} {listLength === 1 ? 'recipe' : 'recipes'}</p>
-        <button onClick={ () => onCreate && onCreate()}>add recipe</button>
-        <button onClick={ () => onSort && onSort()}>sort recipes</button>
-    </div>
+    <React.Fragment>
+        <DishField>{listLength} {listLength === 1 ? 'recipe' : 'recipes'}</DishField>
+        <Button onClick={ () => onCreate && onCreate()}>add recipe</Button>
+        <Button onClick={ () => onSort && onSort()}>sort recipes</Button>
+    </React.Fragment>
 )
