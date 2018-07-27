@@ -20,6 +20,10 @@ class RecipeService {
 	deleteRecipe(id) {
 		return recipeRepository.delete({ _id: id });
 	}
+
+	updateRating(id, recipe) {
+		return recipeRepository.update({ _id: id }, recipe);
+	}
 }
 
 module.exports = new RecipeService();

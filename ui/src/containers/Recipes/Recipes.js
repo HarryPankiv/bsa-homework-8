@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components'; 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchAllRecipes, deleteRecipe } from './RecipesActions';
+import { fetchAllRecipes, deleteRecipe, updateRating } from './RecipesActions';
 import { allRecipes, isRecipesFetching } from './RecipesReducer';
 import RecipeList from '../../components/RecipeList/RecipeList';
 import RecipeListHeader from '../../components/RecipeList/RecipeListHeader'
@@ -15,8 +15,12 @@ class Recipes extends Component {
 		super(props);
 
 		this.state = {
-			activeRecipe: null
-		}
+            activeRecipe: null,
+            searchQuery: '',
+            recipes: []
+        }
+        
+        this.handleSort = this.handleSort.bind(this)
 	}
 
     componentDidMount() {
@@ -33,7 +37,23 @@ class Recipes extends Component {
 
 	handleRecipeCreate = () => {
 		this.props.history.push(`/recipes/new`)
+    }
+    
+    handleRating = id => {
+		this.props.history.push(`/recipes/${id}/rating`)
 	}
+
+    handleSearchChange = (e) => {
+        this.setState({searchQuery: e.target.value})
+        let newList = this.props.allRecipes.filter( el => {
+            return el.title.includes(e.target.value);
+        })
+        this.setState({recipes: newList})
+    }
+    
+    handleUpdateRating = (recipe) => {
+        this.props.actions.updateRating(recipe);
+    }
 
     toggleRecipeModal = id => {
         this.setState({
@@ -45,9 +65,16 @@ class Recipes extends Component {
         this.toggleRecipeModal(null);
     }
 
+    handleSort() {
+        let newlist = this.props.allRecipes.sort( (a, b) => {
+            return b.rating-a.rating;
+        })
+        this.setState({recipes: newlist})
+    }
+
 	render() {
 		const { isFetching, allRecipes } = this.props 
-		const { activeRecipe } = this.state;
+        const { activeRecipe } = this.state;
 
 		return (
 			<div>
@@ -57,13 +84,29 @@ class Recipes extends Component {
                         <RecipeListHeader 
                             onCreate={this.handleRecipeCreate}
                             listLength={allRecipes.length}
+                            onSort={this.handleSort}
                         />
-				        <RecipeList 
-                            recipes={allRecipes}
-                            onView={this.toggleRecipeModal}
-                            onDelete={this.handleDelete}
-                            onEdit={this.handleEdit}
-                        />
+
+                        <input type="text" onChange={this.handleSearchChange} value={this.state.searchQuery} />
+
+                        {
+                            this.state.searchQuery.length > 0 ? 
+                            <RecipeList 
+                                recipes={this.state.recipes}
+                                onView={this.toggleRecipeModal}
+                                onDelete={this.handleDelete}
+                                onEdit={this.handleEdit}
+                                onRate={this.handleRating}
+                            /> :
+                            <RecipeList 
+                                recipes={allRecipes}
+                                onUpdateRating={this.handleUpdateRating}
+                                onView={this.toggleRecipeModal}
+                                onDelete={this.handleDelete}
+                                onRate={this.handleRating}
+                                onEdit={this.handleEdit}
+                            />
+                        }
                     </React.Fragment>
                 }
                 <RecipeModal
@@ -87,7 +130,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ fetchAllRecipes, deleteRecipe }, dispatch)
+    actions: bindActionCreators({ fetchAllRecipes, deleteRecipe, updateRating }, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes)

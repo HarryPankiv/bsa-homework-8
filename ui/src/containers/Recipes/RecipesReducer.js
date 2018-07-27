@@ -40,6 +40,7 @@ const isFetching = ( state = initialState.isFetching, action ) => {
 		case constants.FETCH_RECIPE:
 		case constants.ADD_RECIPE:
 		case constants.UPDATE_RECIPE:
+		case constants.UPDATE_RATING:
 		case constants.DELETE_RECIPE:
 			return true;
 		case constants.FETCH_ALL_RECIPES_SUCCESS:
@@ -50,6 +51,8 @@ const isFetching = ( state = initialState.isFetching, action ) => {
 		case constants.ADD_RECIPE_FAILED:
 		case constants.UPDATE_RECIPE_SUCCESS:
 		case constants.UPDATE_RECIPE_FAILED:
+		case constants.UPDATE_RATING_SUCCESS:
+		case constants.UPDATE_RATING_FAILED:
 		case constants.DELETE_RECIPE_SUCCESS:
 		case constants.DELETE_RECIPE_FAILED:
 			return false;

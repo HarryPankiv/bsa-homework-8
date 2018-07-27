@@ -96,11 +96,29 @@ function* fetchRecipe(action) {
 	}
 } 
 
+function* updateRating(action) {
+	try {
+		yield call(recipeAPI.updateRating, action.payload);
+
+		yield put({
+			type: constants.UPDATE_RATING_SUCCESS,
+			payload: action.payload
+		})
+
+		yield put(push('/recipes'))
+	} catch (error) {
+		yield put({
+			type: constants.UPDATE_RATING_FAILED
+		})
+	}
+} 
+
 export default function* recipesSaga() {
 	yield all([
 		takeLatest(constants.FETCH_ALL_RECIPES, fetchAllRecipes),
 		takeLatest(constants.ADD_RECIPE, addRecipe),
 		takeLatest(constants.UPDATE_RECIPE, updateRecipe),
+		takeLatest(constants.UPDATE_RATING, updateRating),
 		takeLatest(constants.DELETE_RECIPE, deleteRecipe),
 		takeLatest(constants.FETCH_RECIPE, fetchRecipe)
 	])

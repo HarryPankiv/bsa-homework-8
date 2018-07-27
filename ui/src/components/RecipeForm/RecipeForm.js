@@ -51,7 +51,9 @@ export default class RecipeForm extends Component {
 
 		this.state = {
 			title: props.initialValues.title,
-			description: props.initialValues.description
+			description: props.initialValues.description,
+			rating: props.initialValues.rating,
+			disabled: false
 		}
 	}
 
@@ -60,6 +62,15 @@ export default class RecipeForm extends Component {
 			...state,
 			[target.name]: target.value
 		}))
+	}
+
+	handleRatingChange = e => {
+		let number = Number(e.target.value);
+		if (number >= 0 && number <= 5 && Number.isInteger(number)) {
+			const value = e.target.value;
+			const inputValue = !value && value !== 0 ? '' : value;
+			this.setState({rating: inputValue})
+		}
 	}
 
 	handleCancel = () => {
@@ -79,8 +90,8 @@ export default class RecipeForm extends Component {
 	}
 
 	render() {
-		const { disabled, submitButtonTitle, cancelButtonTitle, title: formTitle } = this.props 
-		const { title, description } = this.state;
+		const { disabled, submitButtonTitle, cancelButtonTitle, title: formTitle, ratingInput } = this.props 
+		const { title, description, rating } = this.state;
 
 		return (
 			<React.Fragment>
@@ -104,9 +115,12 @@ export default class RecipeForm extends Component {
 						onChange={this.handleFieldChange}
 						disabled={disabled}
 					></Description>
+					{ ratingInput ? 
+					<input type="number" value={rating} onChange={this.handleRatingChange}/> : null}
+					
 				</Form>
 				<Cancel onClick={this.handleCancel}>{cancelButtonTitle}</Cancel>
-				<Submit onClick={this.handleSubmit}>{submitButtonTitle}</Submit>
+				<Submit onClick={this.handleSubmit} disabled={this.state.disabled}>{submitButtonTitle}</Submit>
 			</React.Fragment>
 		)
 	}
@@ -115,7 +129,8 @@ export default class RecipeForm extends Component {
 RecipeForm.defaultProps = {
 	initialValues: {
 		title: '',
-		description: ''
+		description: '',
+		rating: 0
 	}
 }
 
@@ -128,6 +143,7 @@ RecipeForm.propTypes = {
 	cancelButtonTitle: PropTypes.string.isRequired,
 	initialValues: PropTypes.shape({
 		title: PropTypes.string,
-		description: PropTypes.string
+		description: PropTypes.string,
+		rating: PropTypes.number
 	})
 }

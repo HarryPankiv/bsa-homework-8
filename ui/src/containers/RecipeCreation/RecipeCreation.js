@@ -33,6 +33,7 @@ class Recipe extends Component {
 					onCancel={this.handleCancel}
 					submitButtonTitle="Add recipe"
 					cancelButtonTitle="Back to recipes"
+					ratingInput={true}
 					>
 					
 				</RecipeForm>

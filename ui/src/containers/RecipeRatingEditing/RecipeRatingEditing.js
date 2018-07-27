@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import { updateRecipe, fetchRecipe } from '../Recipes/RecipesActions';
+import { updateRecipe, fetchRecipe, updateRating } from '../Recipes/RecipesActions';
 import { isRecipesFetching, activeRecipe } from '../Recipes/RecipesReducer';
 import RecipeForm from '../../components/RecipeForm/RecipeForm'
 
@@ -38,7 +38,7 @@ class RecipeEditing extends Component {
     }
 
     handleSubmit = data => {
-        this.props.actions.updateRecipe({
+        this.props.actions.updateRating({
             ...this.props.recipe, 
             ...data
         })
@@ -50,20 +50,19 @@ class RecipeEditing extends Component {
 
     render() {
         const { isFetching, recipe } = this.props
-        console.log(this.props)
         
         return (
             <div>
                 {
                     !!recipe && <RecipeForm
-                        disabled={isFetching}
+                        disabled={true}
                         title="Edit recipe"
                         onSubmit={this.handleSubmit}
                         onCancel={this.handleCancel}
                         submitButtonTitle="Update recipe"
                         cancelButtonTitle="Back to recipes"
                         initialValues={recipe}
-                        ratingInput={false}
+                        ratingInput={true}
                     ></RecipeForm>
                 }
             </div>
@@ -77,7 +76,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ updateRecipe, fetchRecipe }, dispatch)
+    actions: bindActionCreators({ updateRecipe, fetchRecipe, updateRating }, dispatch)
 })
 
 RecipeEditing.defaultProps = {

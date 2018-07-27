@@ -52,4 +52,15 @@ recipe.route('/:id')
 			});
 	});
 
+recipe.route('/:id/rating')
+	.patch((req, res) => {
+		console.log('here')
+		recipeService.updateRating(req.params.id, req.body)
+			.then(recipe => {
+				res.send(recipe);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	})
 module.exports = recipe;
